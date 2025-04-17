@@ -35,27 +35,6 @@ const goalSchema = new mongoose.Schema ({
     }
 })
 
-const habitTrackerSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-        maxlength: 100
-    },
-    description: {
-        type: String,
-        required: true,
-        maxlength: 225
-    },
-    frequency: {
-        type: String, 
-        enum: ['daily', 'weekly', 'monthly'],
-        required: true,
-    },
-    user: {
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "User"
-    }
-});
 
 const calorieTrackerSchema = new mongoose.Schema ({
     date: {
@@ -208,10 +187,9 @@ const Notification = mongoose.model("Notification", notificationSchema);
 const Post = mongoose.model("Post", postSchema);
 const Comment = mongoose.model("Comment", commentSchema);
 
-module.exoprts ={
+module.exports ={
     User,
     Goal,
-    HabitTracker,
     CalorieTracker,
     Notification,
     Post,
