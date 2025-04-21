@@ -10,17 +10,21 @@ router.get('/sign-token', (req, res) => {
         email: 'test@example.com',
         firstName: 'test'
     };
-    const token = jwt.sign({ user }, process.env.JWT_SECRET);
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
     res.json({ token });
 });
 
-router.post('/veriy-toke', (req, res) => {
-    try{
-        const token = req.headers.authorization.split(' ')[1];
+router.post('/verify-token', (req, res) => {
+    try {
+        const token = req.body.token; // Extract token from request body
+        if (!token) {
+            return res.status(400).json({ error: "Token is required in the request body" });
+        }
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         res.json({ decoded });
-    }catch (error) {
-        res.status(401).json({ error: "Invalid token."});
+    } catch (error) {
+        console.error("JWT Verification Error:", error);
+        res.status(401).json({ error: "Invalid token" });
     }
 });
 

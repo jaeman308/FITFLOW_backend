@@ -7,7 +7,8 @@ const calorieTrackerSchema = new mongoose.Schema ({
     },
     calorie_intake_goal:{
         type: Number,
-        default: 0
+        default: 0,
+        required: true,
     },
     calorie_consumed: {
         type: Number,

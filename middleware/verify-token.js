@@ -1,16 +1,28 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/user')
 
-function verifyToken (req, res, next) {
-    try {
-        const token = req.headers.authorization.split(' ')[1];
-        if (!token) {
-            return res.status(401).json({ error: 'Authorization token is required' });
+function verifyToken(req, res, next) {
+    const authHeader = req.headers.authorization;
+    
+    if (!authHeader) {
+        return res.status(401).json({ error: "Authorization header is required" });
+    }
+
+    if (!authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ error: "Invalid token format. Use 'Bearer <token>'" });
+    }
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({ error: "Token not found" });
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ error: "Unauthorized access" }); // Fixed typo
         }
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();
-    } catch (error){
-        res.status(401).json({error: "Unauthorization acess"})
-    }
-};
+    });
+}
+
 module.exports = verifyToken;
