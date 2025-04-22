@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user')
 
@@ -15,11 +16,12 @@ function verifyToken(req, res, next) {
     if (!token) {
         return res.status(401).json({ error: "Token not found" });
     }
-
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
-            return res.status(401).json({ error: "Unauthorized access" }); // Fixed typo
+            return res.status(401).json({ error: "Unauthorized access" });
         }
+
+        decoded._id = new mongoose.Types.ObjectId(decoded._id);
         req.user = decoded;
         next();
     });
