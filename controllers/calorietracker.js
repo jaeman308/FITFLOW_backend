@@ -3,14 +3,12 @@ const verifyToken = require('../middleware/verify-token.js');
 const CalorieTracker = require('../models/calorietracker.js');
 const router = express.Router();
 const moment = require('moment');
-const mongoose = require('mongoose'); // for ObjectId casting
+const mongoose = require('mongoose');
 
 // ================== Protected Routes ====================
 router.use(verifyToken);
 
 router.post('/', async (req, res) => {
-    console.log("POST / - user from token:", req.user);
-
     try {
         const tracker = new CalorieTracker({
             date: req.body.date,
@@ -30,7 +28,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const userId = new mongoose.Types.ObjectId(req.user._id); // ✅ explicit cast
+        const userId = new mongoose.Types.ObjectId(req.user._id); 
 
         console.log("User ID (casted):", userId);
 

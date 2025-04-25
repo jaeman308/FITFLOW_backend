@@ -6,7 +6,8 @@ const app = express ()
 const mongoose = require('mongoose');
 const testJWTRouter = require('./controllers/test-jwt');
 const userRouter = require('./controllers/user');
-const calorieTrackerRouter = require('./controllers/calorietracker')
+const calorieTrackerRouter = require('./controllers/calorietracker');
+const goalLogRouter = require('./controllers/goallog');
 
 
 mongoose.connect(process.env.MONGODB_URI);
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use('/test-jwt', testJWTRouter);
 app.use('/user', userRouter);
 app.use('/calorieTracker', calorieTrackerRouter);
+app.use('/goalLog', goalLogRouter);
 
 
 app.listen(PORT, () => {

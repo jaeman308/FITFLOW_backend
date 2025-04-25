@@ -13,14 +13,20 @@ const goalSchema = new mongoose.Schema ({
     },
     length: {
         type: String,
-        enum: ['week', 'month', 'year'],
+        enum: ['weekly', 'month', 'year'],
         required: true
     },
+    
     progress: {
-        type: Number,
-        min: 0, 
-        default: 0
+        type: String,
+        enum: ['Not Started', 'In Progress', 'Complete'],
+        default: "Not Started"
     },
+
+    notes: {
+        type: String
+    },
+
     start_date: {
         type: Date, 
         required: true
