@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
         const tracker = new CalorieTracker({
             date: req.body.date,
             calorie_intake_goal: req.body.calorie_intake_goal,
-            user: new mongoose.Types.ObjectId(req.user._id) // ensure valid ObjectId
+            user: new mongoose.Types.ObjectId(req.user._id) 
         });
 
         await tracker.save();
@@ -30,11 +30,7 @@ router.get('/', async (req, res) => {
     try {
         const userId = new mongoose.Types.ObjectId(req.user._id); 
 
-        console.log("User ID (casted):", userId);
-
         const entries = await CalorieTracker.find({ user: userId }).sort({ date: -1 });
-
-        console.log("Found entries:", entries);
 
         if (entries.length === 0) {
             return res.status(200).json({ message: "No entries found for this user" });
@@ -65,7 +61,7 @@ router.get('/:calorietrackerId', async (req, res) => {
 
         res.json(tracker);
     } catch (error) {
-        console.error("Error getting tracker:", error);
+     
         res.status(500).json({ message: error.message });
     }
 });

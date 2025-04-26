@@ -8,7 +8,7 @@ const testJWTRouter = require('./controllers/test-jwt');
 const userRouter = require('./controllers/user');
 const calorieTrackerRouter = require('./controllers/calorietracker');
 const goalLogRouter = require('./controllers/goallog');
-
+const habitTrackerRouter = require ('./controllers/habittracker');
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -25,6 +25,7 @@ app.use('/test-jwt', testJWTRouter);
 app.use('/user', userRouter);
 app.use('/calorieTracker', calorieTrackerRouter);
 app.use('/goalLog', goalLogRouter);
+app.use('/habitTracker', habitTrackerRouter);
 
 
 app.listen(PORT, () => {
