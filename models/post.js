@@ -1,34 +1,36 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema ({
-    title: {
+    caption: {
         type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        maxlength: 40,
+        maxlength: 2200,
         required: true
     },
     author: {
-        type: ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref:"User",
         required: true
     },
-    likes : {
-        type: Number,
-        default: 0
+    media: [{
+        type: String,
+        required: true
+    }],
+    likes : [{
+        type: mongoose.Schema.Types.ObjectId,
+        default: 0,
+        ref: 'User'
+    }],
+    community: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Community'
     },
-    likedBy :{
-        type: ObjectId,
-        ref: "User"
-    },
-    comment: {
-        type: ObjectId,
+    comment: [{
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"
-    }
+    }]
 
-});
+}, { timestamps: true});
+
 
 const Post = mongoose.model("Post", postSchema);
 module.exports = Post;

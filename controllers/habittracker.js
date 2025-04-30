@@ -2,7 +2,6 @@ const express = require('express');
 const verifyToken = require('../middleware/verify-token.js');
 const HabitTracker = require('../models/habittracker.js');
 const router = express.Router();
-const moment = require('moment');
 const mongoose = require('mongoose');
 
 router.use(verifyToken);

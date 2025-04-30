@@ -2,7 +2,6 @@ const express = require('express');
 const verifyToken = require('../middleware/verify-token.js');
 const CalorieTracker = require('../models/calorietracker.js');
 const router = express.Router();
-const moment = require('moment');
 const mongoose = require('mongoose');
 
 // ================== Protected Routes ====================
@@ -37,7 +36,8 @@ router.get('/', async (req, res) => {
         }
 
         const grouped = entries.reduce((acc, entry) => {
-            const dateKey = moment(entry.date).format('YYYY-MM-DD');
+            const date = new Date(entry.date);
+            const dateKey = date. toISOString().split('T')[0];
             if (!acc[dateKey]) acc[dateKey] = [];
             acc[dateKey].push(entry);
             return acc;

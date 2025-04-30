@@ -37,7 +37,8 @@ router.get('/',  async (req, res) => {
             return res.status(200).json({ message: "No entries found for this user"});
         }
         const allGoalLogs = entries.reduce((acc, entry) => {
-            const dateKey = moment(entry.start_date).format("YYYY-MM-DD");
+            const date = new Date(entry.start_date)
+            const dateKey = date.toISOString().split('T')[0];
             if(!acc[dateKey]) acc[dateKey] = [];
             acc[dateKey].push(entry);
             return acc;

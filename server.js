@@ -9,6 +9,7 @@ const userRouter = require('./controllers/user');
 const calorieTrackerRouter = require('./controllers/calorietracker');
 const goalLogRouter = require('./controllers/goallog');
 const habitTrackerRouter = require ('./controllers/habittracker');
+const PostRouter = require('./controllers/post');
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -26,6 +27,7 @@ app.use('/user', userRouter);
 app.use('/calorieTracker', calorieTrackerRouter);
 app.use('/goalLog', goalLogRouter);
 app.use('/habitTracker', habitTrackerRouter);
+app.use('/post', PostRouter);
 
 
 app.listen(PORT, () => {
