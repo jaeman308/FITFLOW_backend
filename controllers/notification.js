@@ -1,4 +1,4 @@
-const express = requre('express');
+const express = require('express');
 const verifyToken = require('../middleware/verify-token');
 const router =  express.Router();
 const Notification = require('../models/notification');

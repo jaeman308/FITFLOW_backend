@@ -7,8 +7,14 @@ const commentSchema = new mongoose.Schema ({
     required: true
     },
     author: {
-        type: ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+        required: true
+    },
+
+    post: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
         required: true
     },
     likes: {
@@ -16,7 +22,7 @@ const commentSchema = new mongoose.Schema ({
         default: 0
     },
     likedBy: {
-        type: ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
 

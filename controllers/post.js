@@ -39,7 +39,14 @@ router.get('/',async (req, res) => {
 
 router.get('/:postId',async (req, res) => {
     try{ 
-        const post = await Post.findById(req.params.postId);
+        const post = await Post.findById(req.params.postId)
+            .populate({
+                path: 'comment',
+                populate: {
+                    path: 'author',
+                    select: 'username'
+                }
+            });
         if (!post) return res.status(404).json({ message: "Post not found"});
         if (!post.author.equals(req.user._id)){
             return res.status(403).json({message: "Unauthorized"});
@@ -50,6 +57,7 @@ router.get('/:postId',async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 });
+
 
 router.put('/:postId',async (req, res) => {
     try{
@@ -88,7 +96,6 @@ router.delete('/:postId',async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 });
-
 
 
 module.exports = router;
