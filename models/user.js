@@ -17,8 +17,28 @@ const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
-    }
-});
+    },
+    lastName:{
+        type: String,
+        required: true,
+    },
+    bio: {
+        type: String,
+        maxlength: 250,
+    },
+    avatar : {
+        type: String, 
+        required: true,
+    },
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+    }],
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+
+    }],
+}, {timestamps: true});
+
 
 userSchema.set('toJSON', {
     transform: (document, returnedObject) => {

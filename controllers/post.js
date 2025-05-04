@@ -1,16 +1,17 @@
 const express = require('express');
+const router = express.Router();
 const verifyToken = require('../middleware/verify-token.js');
 const Post = require('../models/post.js');
-const router = express.Router();
+const upload = require('../middleware/upload.js');
 const mongoose = require('mongoose');
 
 router.use(verifyToken);
 
-router.post('/',async (req, res) => {
+router.post('/', upload.single('media'), async (req, res) => {
     try{
         const NewPost = new Post({
             caption: req.body.caption,
-            media : req.body.media,
+            media : [req.file.path],
             author: req.user._id
         })
         await NewPost.save();
